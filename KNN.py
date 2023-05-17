@@ -3,19 +3,18 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn import metrics
-from sklearn import tree
 
-def decisionStump(X,y):
+def knn(X,y):
     #Create a training / test split of the data.
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
     #random_state = 1 - This makes the code consistent
 
-    #Create Decision Stump classifer object (Max depth 1 makes it a stump.)
-    clf = DecisionTreeClassifier(criterion="gini",max_depth=1)
+    #Create K-Nearest-Neighbour classifer object
+    clf = KNeighborsClassifier(3)
 
-    #Train Decision Stump Classifer
+    #Train K-Nearest-Neighbour Classifer
     clf = clf.fit(X_train,y_train)
 
     #Predict the response for test dataset
@@ -55,8 +54,10 @@ if __name__ == "__main__":
     #print(df.head())
 
     #Define features and class variable.
-    X = df[names[0:-1]] #Features
+    X = df[names] #Features
     y = df.Class #Define class variable
 
-    accuracy = decisionStump(X,y)
-    print(accuracy)
+    accuracy = knn(X,y)
+    print(f"Accuracy: {accuracy}")
+    
+    
